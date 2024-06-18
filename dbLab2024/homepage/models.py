@@ -29,7 +29,7 @@ class Mentor(models.Model):
         return reverse('model-detail-view', args=[str(self.mentor_id)])
     
 class Research(models.Model):
-    res_name = models.CharField(max_length=20,help_text="enter res name",primary_key=True)
+    res_name = models.CharField(max_length=30,help_text="enter res name",primary_key=True)
     res_summary = models.TextField(help_text="enter summary of the research")
     res_subject = models.ForeignKey('Subject',to_field='subject_id',on_delete=models.RESTRICT,null=True)
 
@@ -60,7 +60,7 @@ class Grade(models.Model):
         unique_together = (('cous_id', 'stu_id',),)
 
     def __str__(self):
-        return self.cous_id + " " + str(self.score)
+        return f"{self.cous_id.cous_name} - {self.stu_id.stu_name}: {self.score}"
 
     def get_absolute_url(self):
         return reverse('model-detail-view', args=[str(self.cous_id + " " + str(self.score))])
@@ -79,15 +79,16 @@ class selectedMaterial(models.Model):
         return reverse('model-detail-view', args=[str(self.matr_id+self.stu_id)])
     
 class Material(models.Model):
-    matr_id =  models.CharField(max_length=20,help_text="inter materials id",primary_key=True)
+    matr_id =  models.CharField(max_length=30,help_text="inter materials id",primary_key=True)
+    matr_name = models.CharField(max_length=20,help_text="inter materials id")
     matr_summary = models.TextField(help_text="enter summary of the material")
     cous_id = models.ForeignKey('Course',to_field='cous_id',on_delete=models.RESTRICT,null=True)
 
     def __str__(self):
-        return self.matr_id
+        return self.matr_name
 
     def get_absolute_url(self):
-        return reverse('model-detail-view', args=[str(self.matr_id)])
+        return reverse('model-detail-view', args=[str(self.matr_name)])
     
 class Subject(models.Model):
     subject_id = models.CharField(max_length=20,help_text="enter the subject id",primary_key=True)

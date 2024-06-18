@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Drop Course</title>
+</head>
+<body>
+    <h1>Drop Course</h1>
+    <p>Are you sure you want to drop the course {{ grade.cous_id }}?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirm</button>
+    </form>
+</body>
+</html>
