@@ -1,5 +1,6 @@
 # myapp/resources.py
-from import_export import resources
+from import_export import resources, fields
+from import_export.widgets import ForeignKeyWidget
 from .models import Student,Mentor,Research,Course,Grade,selectedMaterial,Material,Subject
 
 class StudentResource(resources.ModelResource):
@@ -15,8 +16,14 @@ class ResearchResource(resources.ModelResource):
         model = Research
 
 class CourseResource(resources.ModelResource):
+    subject = fields.Field(
+        column_name='cous_subject',  # 你的CSV文件中对应的列名
+        attribute='cous_subject',
+        widget=ForeignKeyWidget(Subject, 'subject_id')  
+    )
     class Meta:
         model = Course
+        import_id_fields = ('cous_id',)
 
 class GradeResource(resources.ModelResource):
     class Meta:
@@ -33,3 +40,4 @@ class MaterialResource(resources.ModelResource):
 class SubjectResource(resources.ModelResource):
     class Meta:
         model = Subject
+        import_id_fields = ('subject_id',)

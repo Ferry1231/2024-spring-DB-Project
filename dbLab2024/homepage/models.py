@@ -43,7 +43,7 @@ class Course(models.Model):
     cous_subject = models.ForeignKey('Subject',to_field='subject_id',on_delete=models.RESTRICT,null=True)
     cous_id = models.CharField(max_length=20,help_text="enter course id",primary_key=True)
     cous_summary = models.TextField(help_text="enter summary of the course")
-    cous_name = models.CharField(max_length=10,help_text="enter course name")
+    cous_name = models.CharField(max_length=30,help_text="enter course name")
 
     def __str__(self):
         return self.cous_name
